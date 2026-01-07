@@ -1,5 +1,1 @@
 blank_issues_enabled: false
-contact_links:
-  - name: Feature Proposal
-    url: https://github.com/coolamit/igeek-pdfservice/issues/new?template=feature.yml
-    about: Propose a feature that you would like to take lead on.
