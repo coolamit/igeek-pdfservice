@@ -1,3 +1,3 @@
 # Changelog
 
-All notable changes to `:package_name` will be documented in this file.
+All changes to `igeek/pdfservice` will be documented in this file.
