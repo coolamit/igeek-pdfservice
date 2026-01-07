@@ -3,39 +3,39 @@ description: Propose a feature that you would like to take lead on.
 title: "[Feature]: "
 labels: ["feature"]
 body:
-    - type: markdown
-      attributes:
-          value: |
-              Provide a one line description of the feature you would like to propose. Please propose only one feature per issue.
-    - type: textarea
-      id: feature-description
-      attributes:
-          label: Feature Description
-          description: Please provide as much detail as possible about the feature you would like to propose.
-          placeholder: I would like to propose a feature that does X, Y and Z.
-      validations:
-          required: true
-    - type: textarea
-      id: usecases-and-benefits
-      attributes:
-          label: What are the usecases and benefits?
-          description: Please provide as much detail as possible about the usecases and benefits of this feature and why it should be implemented in this package.
-          placeholder: This feature would be beneficial because...
-      validations:
-          required: true
-    - type: dropdown
-      id: lead-developer
-      attributes:
-        label: Are you willing to take lead on developing this feature?
-        description: This means you will be responsible for creating the initial implementation and guiding it through to completion.
-        multiple: false
-        options:
+  - type: markdown
+    attributes:
+      value: |
+        Provide a one line description of the feature you would like to propose. Please propose only one feature per issue.
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: Please provide as much detail as possible about the feature you would like to propose.
+      placeholder: I would like to propose a feature that does X, Y and Z.
+    validations:
+      required: true
+  - type: textarea
+    id: usecases-and-benefits
+    attributes:
+      label: What are the usecases and benefits?
+      description: Please provide as much detail as possible about the usecases and benefits of this feature and why it should be implemented in this package.
+      placeholder: This feature would be beneficial because...
+    validations:
+      required: true
+  - type: dropdown
+    id: lead-developer
+    attributes:
+      label: Are you willing to take lead on developing this feature?
+      description: This means you will be responsible for creating the initial implementation and guiding it through to completion.
+      multiple: false
+      options:
         - Yes
         - No
-    - type: textarea
-      id: notes
-      attributes:
-          label: Notes
-          description: Use this field to provide any other notes that you feel might be relevant here.
-      validations:
-          required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Use this field to provide any other notes that you feel might be relevant here.
+    validations:
+      required: false
