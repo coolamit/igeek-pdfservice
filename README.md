@@ -17,6 +17,8 @@ See [coolamit/pdfservice](https://github.com/coolamit/pdfservice) to get started
 
 ---
 
+The API of this package is inspired by [spatie/laravel-pdf](https://github.com/spatie/laravel-pdf) (which is an excellent package by Spatie), but does not have a Node.js dependency and uses Gotenberg which is written in Golang.
+
 ## Minimum Requirements
 
 - PHP 8.3
