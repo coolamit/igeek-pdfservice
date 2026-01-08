@@ -1,0 +1,6 @@
+parameters:
+    ignoreErrors:
+        -
+            message: "#^Called 'env' outside of the config directory which returns null when the config is cached, use 'config'\\.$#"
+            path: config/pdfservice.php
+            count: 2
