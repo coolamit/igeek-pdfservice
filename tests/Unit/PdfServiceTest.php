@@ -35,18 +35,29 @@ it('throws exception when url is empty', function () {
     new PdfService('', 'my-api-key');
 })->throws(
     InvalidCredentialsException::class,
-    'Cannot instantiate PdfService without an API Key and API URL'
+    'Cannot instantiate PdfService without an API URL'
 );
 
-it('throws exception when key is empty', function () {
-    new PdfService('https://example.com', '');
-})->throws(
-    InvalidCredentialsException::class,
-    'Cannot instantiate PdfService without an API Key and API URL'
-);
+it('can be instantiated with only url (no api key)', function () {
+    $service = new PdfService('https://example.com');
+
+    expect($service)->toBeInstanceOf(PdfService::class);
+});
+
+it('can be instantiated with empty api key', function () {
+    $service = new PdfService('https://example.com', '');
+
+    expect($service)->toBeInstanceOf(PdfService::class);
+});
 
 it('can be created via make() with explicit params', function () {
     $service = PdfService::make('https://custom.url', 'custom-key');
+
+    expect($service)->toBeInstanceOf(PdfService::class);
+});
+
+it('can be created via make() with only url param', function () {
+    $service = PdfService::make('https://example.com');
 
     expect($service)->toBeInstanceOf(PdfService::class);
 });
@@ -60,6 +71,15 @@ it('can be created via make() with config fallback', function () {
     expect($service)->toBeInstanceOf(PdfService::class);
 });
 
+it('can be created via make() when config has url but no key', function () {
+    config(['pdfservice.url' => 'https://config.url']);
+    config(['pdfservice.key' => null]);
+
+    $service = PdfService::make();
+
+    expect($service)->toBeInstanceOf(PdfService::class);
+});
+
 it('throws exception when config returns non-string values', function () {
     config(['pdfservice.url' => null]);
     config(['pdfservice.key' => 123]);
@@ -67,7 +87,7 @@ it('throws exception when config returns non-string values', function () {
     PdfService::make();
 })->throws(
     InvalidCredentialsException::class,
-    'Cannot instantiate PdfService without an API Key and API URL'
+    'Cannot instantiate PdfService without an API URL'
 );
 
 it('sets format using Format enum', function () {
