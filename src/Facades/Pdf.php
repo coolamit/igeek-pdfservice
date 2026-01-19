@@ -24,7 +24,7 @@ class Pdf extends Facade
      *
      * @throws InvalidCredentialsException
      */
-    public static function using(string $apiUrl, string $apiKey): PdfService
+    public static function using(string $apiUrl, string $apiKey = ''): PdfService
     {
         return PdfService::make($apiUrl, $apiKey);
     }

@@ -28,6 +28,8 @@ use ValueError;
 
 class PdfService
 {
+    protected readonly string $apiKey;
+
     protected bool $landscape = false;
 
     /** @var array{0: float, 1: float} */
@@ -60,11 +62,13 @@ class PdfService
      */
     public function __construct(
         protected readonly string $apiUrl,
-        protected readonly string $apiKey,
+        string $apiKey = '',
     ) {
-        if (empty($this->apiKey) || empty($this->apiUrl)) {
-            throw new InvalidCredentialsException('Cannot instantiate PdfService without an API Key and API URL');
+        if (empty($this->apiUrl)) {
+            throw new InvalidCredentialsException('Cannot instantiate PdfService without an API URL');
         }
+
+        $this->apiKey = $apiKey;
 
         $this->size = Format::A4->dimensions();
     }
@@ -77,11 +81,13 @@ class PdfService
      */
     public static function make(?string $apiUrl = null, ?string $apiKey = null): self
     {
-        $apiKeyToUse = $apiKey ?? config('pdfservice.key', '');
         $apiUrlToUse = $apiUrl ?? config('pdfservice.url', '');
 
-        if (! is_string($apiKeyToUse) || ! is_string($apiUrlToUse)) {
-            throw new InvalidCredentialsException('Cannot instantiate PdfService without an API Key and API URL');
+        $configKey = config('pdfservice.key', '');
+        $apiKeyToUse = $apiKey ?? (is_string($configKey) ? $configKey : '');
+
+        if (! is_string($apiUrlToUse)) {
+            throw new InvalidCredentialsException('Cannot instantiate PdfService without an API URL');
         }
 
         return new self($apiUrlToUse, $apiKeyToUse);
@@ -369,9 +375,11 @@ class PdfService
     {
         $stack = HandlerStack::create();
 
-        $stack->push(Middleware::mapRequest(
-            fn (RequestInterface $request) => $request->withHeader('X-Api-Key', $this->apiKey)
-        ));
+        if (! empty($this->apiKey)) {
+            $stack->push(Middleware::mapRequest(
+                fn (RequestInterface $request) => $request->withHeader('X-Api-Key', $this->apiKey)
+            ));
+        }
 
         return new Client(['handler' => $stack]);
     }
